@@ -30,27 +30,33 @@ func main() {
 			body[i] = 'A'
 		}
 		w.Write(body)
+		fmt.Println("Request served")
 	})
 
 	http.HandleFunc("/config", func(w http.ResponseWriter, r *http.Request) {
 		newDelay, err := strconv.Atoi(r.URL.Query().Get("delay"))
 		if err != nil {
 			w.WriteHeader(400)
-			w.Write([]byte("Bad Request"))
+			w.Write([]byte("Bad Request\n"))
+			fmt.Println("Config not updated:", err)
 			return
 		}
 		newSize, err := strconv.Atoi(r.URL.Query().Get("size"))
 		if err != nil {
 			w.WriteHeader(400)
-			w.Write([]byte("Bad Request"))
+			w.Write([]byte("Bad Request\n"))
+			fmt.Println("Config not updated:", err)
 			return
 		}
 		lock.Lock()
 		delay = newDelay
 		size = newSize
 		lock.Unlock()
-		w.Write([]byte("OK"))
+		w.WriteHeader(200)
+		w.Write([]byte("OK\n"))
+		fmt.Println("Config updated")
 	})
 
+	fmt.Println("Listening on :8888")
 	fmt.Println(http.ListenAndServe(":8888", nil))
 }
