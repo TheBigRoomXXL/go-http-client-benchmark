@@ -58,5 +58,5 @@ func main() {
 	})
 
 	fmt.Println("Listening on :8888")
-	fmt.Println(http.ListenAndServe(":8888", nil))
+	fmt.Println(http.ListenAndServe("0.0.0.0:8888", nil))
 }
