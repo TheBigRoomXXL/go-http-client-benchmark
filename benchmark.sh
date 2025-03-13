@@ -11,7 +11,7 @@ for delay in $(seq 100 100 2000); do
         # Configure the HTTP server
         wget "$url/config?delay=$delay&size=$size" -q --no-cache --spider
 
-        echo 'HTTP server configured with : { delay: $delay, size: $size" }'
+        echo "HTTP server configured with : { delay: $delay, size: $size }"
         
         for c in $(seq 100 100 1500); do
             echo "  - Running hey with concurrency: $c, Delay: $delay, Size: $size"
