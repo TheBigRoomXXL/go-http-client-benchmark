@@ -30,7 +30,6 @@ func main() {
 			body[i] = 'A'
 		}
 		w.Write(body)
-		fmt.Println("Request served")
 	})
 
 	http.HandleFunc("/config", func(w http.ResponseWriter, r *http.Request) {
@@ -54,7 +53,7 @@ func main() {
 		lock.Unlock()
 		w.WriteHeader(200)
 		w.Write([]byte("OK\n"))
-		fmt.Println("Config updated")
+		fmt.Println("Config updated: delay=", delay, "size=", size)
 	})
 
 	fmt.Println("Listening on :8888")
