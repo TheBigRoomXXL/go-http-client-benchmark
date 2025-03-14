@@ -15,7 +15,7 @@ for delay in $(seq 100 100 1000); do
         for c in $(seq 200 200 1000); do
             echo "  - Running hey with concurrency: $c, Delay: $delay, Size: $size"
             
-            OUTPUT=$(hey -c $c -n 10000 $url)
+            OUTPUT=$(hey -c $c -z 10s $url)
             
             AVG_LATENCY=$(echo "$OUTPUT" | grep "Average:" | awk '{print $2}')
             REQ_PER_SEC=$(echo "$OUTPUT" | grep "Requests/sec:" | awk '{print $2}')
