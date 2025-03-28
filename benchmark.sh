@@ -5,14 +5,14 @@ url=$1
 
 echo "Delay,Size,Concurrency,Average Latency (s),Requests/sec" > results.csv
 
-for delay in $(seq 100 100 100); do
-    for size in $(seq 0 10 100); do
+for delay in $(seq 100 100 1000); do
+    for size in $(seq 0 100 500); do
         # Configure the HTTP server
         wget "$url/config?delay=$delay&size=$size" -q --no-cache --spider
 
         echo "HTTP server configured with : { delay: $delay, size: $size }"
         
-        for c in $(seq 1 16 128); do
+        for c in $(seq 200 200 1000); do
             echo "  - Running hey with concurrency: $c, Delay: $delay, Size: $size"
             
             OUTPUT=$(hey -c $c -z 10s $url)
